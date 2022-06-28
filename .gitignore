@@ -1,3 +1,7 @@
 .idea
 cmake-build-debug
 CMakeLists.txt
+token.txt
+*.txt
+*.out
+/testFiles
