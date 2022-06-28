@@ -18,6 +18,7 @@ void createFile(unsigned num){
     if(fileToWrite != NULL){
         fprintf(fileToWrite, "testfilegenerated");
     }
+    fclose(fileToWrite);
 }
 
 int main(){
