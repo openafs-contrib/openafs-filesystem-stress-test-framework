@@ -23,5 +23,4 @@ void createFile(unsigned num){
 int main(){
     setupTestDirectory();
     createFile(16);
-    setupTestDirectory();
 }
