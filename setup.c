@@ -24,7 +24,7 @@ void createFile(char path[], unsigned num){
     FILE* fileToWrite = NULL;
     fileToWrite = fopen(filename, "w+");
     if(fileToWrite != NULL){
-        fprintf(fileToWrite, "testfilegenerated");
+        fprintf(fileToWrite, "test-file-generated\n");
     }
     fclose(fileToWrite);
 }

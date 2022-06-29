@@ -6,22 +6,39 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+char buffer[255];
 
-void setupTestDirectory(){
-    mkdir("testFiles", 0777);
-}
-void createFile(unsigned num){
-    char filename[32];
-    sprintf(filename, "testFiles/testfile%i.txt", num);
-    FILE* fileToWrite = NULL;
-    fileToWrite = fopen(filename, "w+");
-    if(fileToWrite != NULL){
-        fprintf(fileToWrite, "testfilegenerated");
+void addToFile(char path[]){
+    FILE* fileToAppend = NULL;
+    fileToAppend = fopen(path, "a+");
+    if(fileToAppend != NULL){
+        fprintf(fileToAppend, "data inserted during test\n");
     }
+    fclose(fileToAppend);
+}
+
+void overwriteFile(char path[]){
+    FILE* fileToWrite = fopen(path, "w+");
+    fprintf(fileToWrite, "%s", buffer);
     fclose(fileToWrite);
 }
 
+void readIntoBuffer(char path[]){
+    FILE* fileToRead = fopen(path, "r");
+    int c = fgetc(fileToRead);
+    for(int i = 0; c != EOF; i++){
+        buffer[i] = (char) c;
+        c = fgetc(fileToRead);
+    }
+    fclose(fileToRead);
+}
+
+void copyContents(char pathSource[], char pathDest[]){
+    readIntoBuffer(pathSource);
+    overwriteFile(pathDest);
+}
+
 int main(){
-    setupTestDirectory();
-    createFile(16);
+    addToFile("testFiles-0/testfile1.txt");
+    copyContents("testFiles-0/testfile1.txt", "testFiles-0/testfile2.txt");
 }

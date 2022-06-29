@@ -4,5 +4,6 @@ CMakeLists.txt
 token.txt
 *.txt
 *.out
-/testFiles
+/testFiles*
 setupexec
+fileexec
