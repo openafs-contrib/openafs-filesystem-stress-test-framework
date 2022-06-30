@@ -13,3 +13,4 @@ run: fileexec
 fileexec: fileoperations.c
 	gcc -o fileexec fileoperations.c -Wall
 
+reset: clean init run
