@@ -13,7 +13,7 @@ void setupTestDirectory(unsigned num){
     char dirName[32];
     sprintf(dirName, "testFiles-%i", num);
     mkdir(dirName, 0777);
-    for(int i = 0; i<50; i++){
+    for(int i = 0; i<100; i++){
         createFile(dirName, i);
     }
 }
@@ -30,7 +30,7 @@ void createFile(char path[], unsigned num){
 }
 
 int main(){
-    for(int i = 0; i<8; i++){
+    for(int i = 0; i<16; i++){
         setupTestDirectory(i);
     }
 }
