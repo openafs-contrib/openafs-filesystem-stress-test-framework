@@ -4,6 +4,10 @@
 #include "stdio.h"
 #include "unistd.h"
 
+/**
+ * runs the two executables in parallel, each manipulating 8 directories
+ * @return
+ */
 int main(){
     int pid = fork();
     if(pid == -1){
