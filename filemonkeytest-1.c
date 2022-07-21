@@ -11,25 +11,36 @@
 #include "time.h"
 #include "fileoperations.h"
 
+/**
+ * tester runs on directories 0-8, manipulating random files with random operations
+ * @return
+ */
 int main(){
+    //setup fields for names of directories and files
     char dirName[32];
     char filename[56];
     char filenameCopy[56];
+    //cpu time variables
     clock_t start, end;
     double cpu_time_used;
     FILE* timep = fopen("cpu-time.txt", "w+");
+    FILE* filesused = fopen("files-used.txt", "a+");
+    //setting up the seed and timing
     srand(rand());
-    while(file_miss_count<100000){
+    time_t end_of_test = time(NULL)+300;
+
+    //tests for 5 minutes
+    while(time(NULL)<= end_of_test){
         int dirnum = rand() % 8;
-        int filenum = rand() % 50;
+        int filenum = rand() % 100;
         sprintf(dirName, "testFiles-%i", dirnum);
         sprintf(filename, "%s/testfile%i.txt", dirName, filenum);
         sprintf(filenameCopy, "%s/testfile%i.txt", dirName, filenum/2);
 
 
-        printf("%s\t%s\t%d\n", filename, filenameCopy, file_miss_count);
+        fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
 
-        if(rand() % 10 < 7) {
+        if(rand() % 100 < 70) {
             start = clock();
             addToFile(filename);
             end = clock();
@@ -37,16 +48,17 @@ int main(){
             fprintf(timep, "%f\n", cpu_time_used);
         }
 
-        if(rand() % 10 < 4) copyContents(filename, filenameCopy);
+        if(rand() % 100 < 40) copyContents(filename, filenameCopy);
 
-        if(rand()%10<1) {
+        if(rand()%100 < 5) {
             renameFile(filenameCopy, dirnum);
             deleteFile(filename);
         }
     }
 
-    //renameFile("testFiles-0/testfile0.txt", 0);
-    //deleteFile("testFiles-0/testfile0.txt");
-    //addToFile("testFiles-0/testfile1.txt");
-    //copyContents("testFiles-0/testfile1.txt", "testFiles-0/testfile2.txt");
+    //closing log files
+    fclose(timep);
+    fclose(filesused);
+    return 0;
+
 }

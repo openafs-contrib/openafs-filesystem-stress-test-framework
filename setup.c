@@ -8,7 +8,10 @@
 #include <unistd.h>
 void createFile(char path[], unsigned num);
 
-
+/**
+ * establishes the test directories and populates them with 100 files
+ * @param num
+ */
 void setupTestDirectory(unsigned num){
     char dirName[32];
     sprintf(dirName, "testFiles-%i", num);
@@ -18,6 +21,11 @@ void setupTestDirectory(unsigned num){
     }
 }
 
+/**
+ * creates test files in the form of .txt files
+ * @param path
+ * @param num
+ */
 void createFile(char path[], unsigned num){
     char filename[32];
     sprintf(filename, "%s/testfile%i.txt", path, num);
@@ -29,6 +37,10 @@ void createFile(char path[], unsigned num){
     fclose(fileToWrite);
 }
 
+/**
+ * sets up 16 test directories
+ * @return
+ */
 int main(){
     for(int i = 0; i<16; i++){
         setupTestDirectory(i);

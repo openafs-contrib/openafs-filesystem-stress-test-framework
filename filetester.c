@@ -5,6 +5,17 @@
 #include "unistd.h"
 
 int main(){
-    int id = fork();
+    int pid = fork();
+    if(pid == -1){
+        fprintf(stderr, "Error in forking the process");
+        return 1;
+    }
+    else if (pid == 0){
+        execvp("./fileexec-2", NULL);
+    }
+    else{
+        execvp("./fileexec-1", NULL);
+    }
+    return 0;
 }
 
