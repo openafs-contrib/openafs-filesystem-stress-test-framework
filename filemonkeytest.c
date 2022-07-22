@@ -26,6 +26,8 @@ int main(int argc, char** argv){
     int lowerBound = atoi(dirLowerBound);
     int offset = atoi(offsetArg);
 
+    printf("%s\t%s", dirLowerBound, offsetArg);
+
     char dirName[32];
     char filename[56];
     char filenameCopy[56];
