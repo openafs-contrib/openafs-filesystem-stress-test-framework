@@ -21,12 +21,13 @@ int main(int argc, char** argv){
         return 15;
     }
     //setup fields for names of directories and files
-    char* dirLowerBound = *(argv+1);
-    char* offsetArg = *argv;
+    char* dirLowerBound = *(argv+2);
+    char* offsetArg = *(argv+1);
     int lowerBound = atoi(dirLowerBound);
     int offset = atoi(offsetArg);
 
-    printf("%s\t%s", dirLowerBound, offsetArg);
+    //printf("%d\t%d", lowerBound, offset);
+
 
     char dirName[32];
     char filename[56];
@@ -42,7 +43,7 @@ int main(int argc, char** argv){
 
     //tests for 5 minutes
     while(time(NULL)<= end_of_test){
-        int dirnum = rand() % 8;
+        int dirnum = rand() % offset + lowerBound;
         int filenum = rand() % 100;
         sprintf(dirName, "testFiles-%i", dirnum);
         sprintf(filename, "%s/testfile%i.txt", dirName, filenum);

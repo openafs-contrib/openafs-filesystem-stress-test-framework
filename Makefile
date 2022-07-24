@@ -1,7 +1,15 @@
 clean:
 	rm -rf `find . -type d -name 'testFiles*'`
-	rm cpu-time.txt
-	rm files-used.txt
+	rm -f cpu-time.txt
+	rm -f files-used.txt
+
+removeexec:
+	rm -f setupexec
+	rm -f setup
+	rm -f fileexec-1
+	rm -f fileexec-2
+	rm -f filemonkeytester
+	rm -f fileexec
 
 init: setupexec
 	./setupexec
@@ -12,8 +20,11 @@ setupexec: setup.c
 run: fileexec
 	./fileexec
 
-fileexec: fileexec-1 fileexec-2 filetester.c
+fileexec: filetest filetester.c
 	gcc -o fileexec filetester.c
+
+filetest: filemonkeytest.c fileoperations.c
+	gcc -o filemonkeytester filemonkeytest.c fileoperations.c -Wall
 
 fileexec-1: fileoperations.c filemonkeytest-1.c
 	gcc -o fileexec-1 filemonkeytest-1.c fileoperations.c -Wall
