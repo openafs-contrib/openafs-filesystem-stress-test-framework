@@ -11,10 +11,10 @@
  * @return
  */
 int main(int argc, char** argv){
-    int offset = 2;
+    int offset = 10;
     int baseDir = 0;
 
-    for(int i = 0; i<25; i++) {
+    for(int i = 0; i<5; i++) {
         char arg1[2];
         char arg2[2];
         sprintf(arg1, "%d", offset);
@@ -37,7 +37,7 @@ int main(int argc, char** argv){
             baseDir += offset;
         }
     }
-    for(int i = 0; i< 25; i++) wait(NULL);
+    for(int i = 0; i<5; i++) wait(NULL);
     return 0;
 }
 

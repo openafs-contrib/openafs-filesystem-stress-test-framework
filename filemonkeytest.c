@@ -63,8 +63,11 @@ int main(int argc, char** argv){
 
         if(rand()%100 < 15) {
             renameFile(filenameCopy, dirnum);
+        }
+        if(rand()%100 < 20) {
             deleteFile(filename);
         }
+
     }
 
     //closing log files
