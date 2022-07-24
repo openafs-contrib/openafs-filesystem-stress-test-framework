@@ -98,7 +98,7 @@ void copyContents(char pathSource[], char pathDest[]){
  */
 void renameFile(char pathSource[], int dirNum){
     char pathDest[56];
-    int filenum = rand() % 150;
+    int filenum = rand() % 600;
     sprintf(pathDest, FILEFORMAT, dirNum, filenum);
     if(rename(pathSource, pathDest) != 0) file_miss_count++;
 }

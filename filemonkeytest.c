@@ -38,12 +38,12 @@ int main(int argc, char** argv){
     FILE* filesused = fopen("files-used.txt", "a+");
     //setting up the seed and timing
     srand(rand());
-    time_t end_of_test = time(NULL)+300;
+    time_t end_of_test = time(NULL)+600;
 
     //tests for 5 minutes
     while(time(NULL)<= end_of_test){
         int dirnum = rand() % offset + lowerBound;
-        int filenum = rand() % 100;
+        int filenum = rand() % 500;
         sprintf(dirName, "testFiles-%i", dirnum);
         sprintf(filename, "%s/testfile%i.txt", dirName, filenum);
         sprintf(filenameCopy, "%s/testfile%i.txt", dirName, filenum/2);
@@ -59,9 +59,9 @@ int main(int argc, char** argv){
             fprintf(timep, "%f\n", cpu_time_used);
         }
 
-        if(rand() % 100 < 40) copyContents(filename, filenameCopy);
+        if(rand() % 100 < 90) copyContents(filename, filenameCopy);
 
-        if(rand()%100 < 5) {
+        if(rand()%100 < 15) {
             renameFile(filenameCopy, dirnum);
             deleteFile(filename);
         }
