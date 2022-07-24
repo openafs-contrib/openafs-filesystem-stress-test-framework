@@ -2,6 +2,7 @@
 // Created by arniejhingran on 7/13/22.
 //
 #include <stdlib.h>
+#include <wait.h>
 #include "stdio.h"
 #include "unistd.h"
 #define execString "./filemonkeytester"
@@ -36,6 +37,7 @@ int main(int argc, char** argv){
             baseDir += offset;
         }
     }
+    for(int i = 0; i< 8; i++) wait(NULL);
     return 0;
 }
 
