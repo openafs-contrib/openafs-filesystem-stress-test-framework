@@ -17,7 +17,7 @@
  */
 int main(int argc, char** argv){
     if(argc != 3){
-        fprintf(stderr, "Incorrect Number of Arguments");
+        fprintf(stderr, "Incorrect Number of Arguments. Should be 2, got %d", argc);
         return 15;
     }
     //setup fields for names of directories and files
@@ -27,7 +27,6 @@ int main(int argc, char** argv){
     int offset = atoi(offsetArg);
 
     //printf("%d\t%d", lowerBound, offset);
-
 
     char dirName[32];
     char filename[56];

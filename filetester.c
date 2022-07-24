@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "stdio.h"
 #include "unistd.h"
-
+#define execString "./filemonkeytester"
 /**
  * runs the two executables in parallel, each manipulating 8 directories
  * @return
@@ -18,9 +18,7 @@ int main(int argc, char** argv){
         char arg2[2];
         sprintf(arg1, "%d", offset);
         sprintf(arg2, "%d", baseDir);
-        char* args[2];
-        args[0] = arg1;
-        args[1] = arg2;
+        char* args[4] = {execString,arg1, arg2, NULL};
 
         //sprintf(execstring, "./filemonkeytester %d %d", offset, baseDir);
         int pid = fork();
@@ -31,7 +29,7 @@ int main(int argc, char** argv){
         else if (pid == 0) {
             printf("[son] pid %d from [parent] pid %d\n",getpid(),getppid());
             //printf("%d\t%d\n", baseDir, offset);
-            execvp("./filemonkeytester", args);
+            execvp(execString, args);
             exit(0);
         }
         else {
