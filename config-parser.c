@@ -2,13 +2,13 @@
 // Created by arniejhingran on 7/24/22.
 //
 
-#include <stdlib.h>
-#include "config-parser.h"
+
 #include "stdio.h"
+#include <stdlib.h>
 #include "string.h"
 
 int cores;
-int write_chace;
+int write_chance;
 int copy_chance;
 int delete_chance;
 int rename_chance;
@@ -29,7 +29,7 @@ void parseConfig(){
             }
             else if(strstr(token, "write")!=NULL){
                 token = strtok(NULL, "=");
-                write_chace = atoi(token);
+                write_chance = atoi(token);
             }
             else if(strstr(token, "copy")!=NULL){
                 token = strtok(NULL, "=");
@@ -64,3 +64,4 @@ void parseConfig(){
         }
     }
 }
+

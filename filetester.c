@@ -5,16 +5,22 @@
 #include <wait.h>
 #include "stdio.h"
 #include "unistd.h"
+#include "config-parser.h"
 #define execString "./filemonkeytester"
 /**
  * runs the two executables in parallel, each manipulating 8 directories
  * @return
  */
 int main(int argc, char** argv){
-    int offset = 10;
+    parseConfig();
+    if(directories%cores != 0) {
+        fprintf(stderr, "error in config, num of directories must be divisible by core count");
+        return 15;
+    }
+    int offset = directories/cores;
     int baseDir = 0;
 
-    for(int i = 0; i<5; i++) {
+    for(int i = 0; i<cores; i++) {
         char arg1[2];
         char arg2[2];
         sprintf(arg1, "%d", offset);
@@ -37,7 +43,8 @@ int main(int argc, char** argv){
             baseDir += offset;
         }
     }
-    for(int i = 0; i<5; i++) wait(NULL);
+    for(int i = 0; i<cores; i++) wait(NULL);
+
     return 0;
 }
 

@@ -8,7 +8,7 @@
 #endif //OPENAFS_FILESYSTEM_STRESS_TEST_FRAMEWORK_CONFIG_PARSER_H
 
 extern int cores;
-extern int write_chace;
+extern int write_chance;
 extern int copy_chance;
 extern int delete_chance;
 extern int rename_chance;

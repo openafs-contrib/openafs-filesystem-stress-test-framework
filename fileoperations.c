@@ -13,7 +13,7 @@
 #include "config-parser.h"
 
 #define FILEFORMAT "testFiles-%i/testfile%i.txt"
-char buffer[INT_MAX];
+char buffer[1000];
 int file_miss_count = 0;
 
 
@@ -58,7 +58,7 @@ void readIntoBuffer(char path[]){
     FILE* fileToRead = fopen(path, "r");
     if(fileToRead != NULL) {
         int c = fgetc(fileToRead);
-        for (int i = 0; c != EOF && i<10000; i++) {
+        for (int i = 0; c != EOF && i<1000; i++) {
             buffer[i] = (char) c;
             c = fgetc(fileToRead);
         }
