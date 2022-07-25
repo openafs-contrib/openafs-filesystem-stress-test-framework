@@ -1,7 +1,7 @@
 # Open AFS Stress Testing Framework
 
 ## Capabilities
-Currently the tester runs the operations defined inside of fileoperations.h over 1600 files in a random order and sequence.
+Currently the tester runs the operations defined inside of *fileoperations.h* over 1600 files in a random order and sequence.
 As it stands the tester runs two executables in parallel, with each executable operating on 800 of the files over a 5 minute time frame. 
                                                                                                                             
 Files opened during the test are logged inside of **files-used.txt**
@@ -19,8 +19,22 @@ Run ```make clean``` to remove the test directories, files, and any files genera
 
 Run ```make reset``` to clean, setup, and run the test suite again
 
-## Experimental Work
+## Experimental
+Currently the experimental branch is set up to read a config file to establish the number of processes being run, test
+directories and file numbers, as well as the likelihood of different file operations occurring. Code has been optimized
+and the tester files have been consolidated into just *filetester.c* and *filemonkeytest.c*.
+
 **Configurability** is currently being experimented in the experimental branch to allow for customization in the number of
 processes spawned, files operated on, length of operations, among other features
 
 **Optimization** is being worked on to improve the readability and remove the repetitiveness in the current testing suite
+
+**Multiprocessing** has been implemented in a more seamless way
+
+## Metrics
+Currently the only metric being recorded is cpu-time for the write/append operation. Values from all process are being 
+dumped into *cpu-time.txt* as it stands. 
+
+**Local Metrics** will be implemented in the future
+
+**AFS Metrics** will be implemented in the future

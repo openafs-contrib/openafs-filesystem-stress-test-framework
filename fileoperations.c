@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "time.h"
+#include "config-parser.h"
 
 #define FILEFORMAT "testFiles-%i/testfile%i.txt"
 char buffer[INT_MAX];
@@ -97,8 +98,9 @@ void copyContents(char pathSource[], char pathDest[]){
  * @param dirNum
  */
 void renameFile(char pathSource[], int dirNum){
+    parseConfig();
     char pathDest[56];
-    int filenum = rand() % 600;
+    int filenum = rand() % files+100;
     sprintf(pathDest, FILEFORMAT, dirNum, filenum);
     if(rename(pathSource, pathDest) != 0) file_miss_count++;
 }
