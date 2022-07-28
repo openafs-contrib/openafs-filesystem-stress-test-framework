@@ -13,10 +13,6 @@
  */
 int main(int argc, char** argv){
     parseConfig();
-    if(directories%cores != 0) {
-        fprintf(stderr, "error in config, num of directories must be divisible by core count");
-        return 15;
-    }
     int offset = directories/cores;
     int baseDir = 0;
 

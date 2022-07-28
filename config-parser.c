@@ -62,6 +62,11 @@ void parseConfig(){
             //token = strtok(NULL, "=");
             //printf("%s", token);
         }
+
+        if(directories%cores != 0) {
+            fprintf(stderr, "error in config, num of directories must be divisible by core count");
+            exit(1);
+        }
     }
 }
 
