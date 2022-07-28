@@ -1,11 +1,11 @@
 //
 // Created by arniejhingran on 6/28/22.
 //
-#include "stdio.h"
-#include "string.h"
-#include <sys/types.h>
+#include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
-#include <unistd.h>
+#include "config-parser.h"
+
 void createFile(char path[], unsigned num);
 
 /**
@@ -16,7 +16,7 @@ void setupTestDirectory(unsigned num){
     char dirName[32];
     sprintf(dirName, "testFiles-%i", num);
     mkdir(dirName, 0777);
-    for(int i = 0; i<100; i++){
+    for(int i = 0; i<files; i++){
         createFile(dirName, i);
     }
 }
@@ -42,7 +42,8 @@ void createFile(char path[], unsigned num){
  * @return
  */
 int main(){
-    for(int i = 0; i<16; i++){
+    parseConfig();
+    for(int i = 0; i<directories; i++){
         setupTestDirectory(i);
     }
 }

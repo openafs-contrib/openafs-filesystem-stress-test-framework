@@ -2,9 +2,7 @@
 
 ## Capabilities
 Currently the tester runs the operations defined inside of *fileoperations.h* over 1600 files in a random order and sequence.
-As it stands the tester runs two executables in parallel, with each executable operating on 800 of the files over a 5 minute time frame.
-
-Files opened during the test are logged inside of **files-used.txt**
+As it stands the tester runs two executables in parallel, with each executable operating on 800 of the files over a 5 minute time frame. 
 
 ## Initialization
 Run ```make init``` to establish the test files and test directories. Directories will be in the format of **testFiles-#**
@@ -32,7 +30,7 @@ processes spawned, files operated on, length of operations, among other features
 **Multiprocessing** has been implemented in a more seamless way
 
 ## Metrics
-Currently the only metric being recorded is cpu-time for the write/append operation. Values from all process are being
+Currently the only metric being recorded is cpu-time for the write/append operation. Values from all process are being 
 dumped into *cpu-time.txt* as it stands.
 
 **Local Metrics** will be implemented in the future

@@ -10,9 +10,10 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "time.h"
+#include "config-parser.h"
 
 #define FILEFORMAT "testFiles-%i/testfile%i.txt"
-char buffer[INT_MAX];
+char buffer[10];
 int file_miss_count = 0;
 
 
@@ -53,18 +54,28 @@ void overwriteFile(char data[], char path[]){
  * reads the first 10000 characters from the file into the buffer
  * @param path
  */
-void readIntoBuffer(char path[]){
+double readIntoBuffer(char path[]){
     FILE* fileToRead = fopen(path, "r");
+    clock_t start, end;
+    int c = 0, count = 0;
+    double time_used = 0;
     if(fileToRead != NULL) {
-        int c = fgetc(fileToRead);
-        for (int i = 0; c != EOF && i<10000; i++) {
-            buffer[i] = (char) c;
+        //time_t end = time(NULL)+5;
+        while (c != EOF) {
+            buffer[0] = (char) c;
+            start = clock();
             c = fgetc(fileToRead);
+            end = clock();
+            count++;
+            time_used += ((double) (end - start)) / CLOCKS_PER_SEC;
         }
+        double throughput = count/time_used;
         fclose(fileToRead);
+        return throughput;
     }
     else{
         file_miss_count++;
+        return -1;
     }
 }
 
@@ -97,8 +108,9 @@ void copyContents(char pathSource[], char pathDest[]){
  * @param dirNum
  */
 void renameFile(char pathSource[], int dirNum){
+    parseConfig();
     char pathDest[56];
-    int filenum = rand() % 150;
+    int filenum = rand() % files+100;
     sprintf(pathDest, FILEFORMAT, dirNum, filenum);
     if(rename(pathSource, pathDest) != 0) file_miss_count++;
 }
