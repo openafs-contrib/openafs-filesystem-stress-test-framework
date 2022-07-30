@@ -32,7 +32,14 @@ void createFile(char path[], unsigned num){
     FILE* fileToWrite = NULL;
     fileToWrite = fopen(filename, "w+");
     if(fileToWrite != NULL){
-        fprintf(fileToWrite, "test-file-generated\n");
+        if(num<read_f){
+            for(int i = 0; i<104000000; i++){
+                fprintf(fileToWrite, "%d\n", i);
+            }
+        }
+        else{
+            fprintf(fileToWrite, "test-file-generated\n");
+        }
     }
     fclose(fileToWrite);
 }

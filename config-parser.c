@@ -15,6 +15,7 @@ int rename_chance;
 int time_of_test;
 int directories;
 int files;
+int read_f;
 
 void parseConfig(){
     FILE* config = fopen("config.cfg", "r");
@@ -55,6 +56,10 @@ void parseConfig(){
                 token = strtok(NULL, "=");
                 files = atoi(token);
             }
+            else if(strstr(token, "read_f")!=NULL){
+                token = strtok(NULL, "=");
+                read_f = atoi(token);
+            }
             else{
                 fprintf(stderr, "config contains unknown key:value pair");
             }
@@ -65,6 +70,10 @@ void parseConfig(){
 
         if(directories%cores != 0) {
             fprintf(stderr, "error in config, num of directories must be divisible by core count");
+            exit(1);
+        }
+        if(read_f>files) {
+            fprintf(stderr, "error in config, num of reading operation files greater than total files");
             exit(1);
         }
     }
