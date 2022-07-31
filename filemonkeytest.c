@@ -52,7 +52,7 @@ int main(int argc, char** argv){
         fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
 
         if(filenum<read_f){
-            double read_t = readIntoBuffer(filename);
+            double read_t = read_Sequential(filename);
             if(read_t != -1) fprintf(read_time, "%f\n", read_t);
         }
         else {

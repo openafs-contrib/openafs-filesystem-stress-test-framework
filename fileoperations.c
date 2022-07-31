@@ -54,7 +54,7 @@ void overwriteFile(char data[], char path[]){
  * reads the first 10000 characters from the file into the buffer
  * @param path
  */
-double readIntoBuffer(char path[]){
+double read_Sequential(char path[]){
     char buffer[1000000];
     FILE* fileToRead = fopen(path, "r");
     clock_t start, end;
