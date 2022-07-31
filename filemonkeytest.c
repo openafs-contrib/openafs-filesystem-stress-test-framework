@@ -34,6 +34,7 @@ int main(int argc, char** argv){
     clock_t start, end;
     double cpu_time_used;
     FILE* timep = fopen("cpu-time.txt", "w+");
+    FILE* read_time = fopen("read-metrics.txt", "w+");
     FILE* filesused = fopen("files-used.txt", "a+");
     //setting up the seed and timing
     srand(rand());
@@ -50,21 +51,27 @@ int main(int argc, char** argv){
 
         fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
 
-        if(rand() % 100 < write_chance) {
-            start = clock();
-            addToFile(filename);
-            end = clock();
-            cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-            fprintf(timep, "%f\n", cpu_time_used);
+        if(filenum<read_f){
+            double read_t = readIntoBuffer(filename);
+            if(read_t != -1) fprintf(read_time, "%f\n", read_t);
         }
+        else {
+            if (rand() % 100 < write_chance) {
+                start = clock();
+                addToFile(filename);
+                end = clock();
+                cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+                fprintf(timep, "%f\n", cpu_time_used);
+            }
 
-        if(rand() % 100 < copy_chance) copyContents(filename, filenameCopy);
+            if (rand() % 100 < copy_chance) copyContents(filename, filenameCopy);
 
-        if(rand()%100 < rename_chance) {
-            renameFile(filenameCopy, dirnum);
-        }
-        if(rand()%100 < delete_chance) {
-            deleteFile(filename);
+            if (rand() % 100 < rename_chance) {
+                renameFile(filenameCopy, dirnum);
+            }
+            if (rand() % 100 < delete_chance) {
+                deleteFile(filename);
+            }
         }
 
     }
@@ -72,6 +79,7 @@ int main(int argc, char** argv){
     //closing log files
     fclose(timep);
     fclose(filesused);
+    fclose(read_time);
     return 0;
 
 }

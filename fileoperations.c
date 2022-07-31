@@ -13,7 +13,7 @@
 #include "config-parser.h"
 
 #define FILEFORMAT "testFiles-%i/testfile%i.txt"
-char buffer[10];
+char global_buffer[10];
 int file_miss_count = 0;
 
 
@@ -55,18 +55,18 @@ void overwriteFile(char data[], char path[]){
  * @param path
  */
 double readIntoBuffer(char path[]){
+    char buffer[1000000];
     FILE* fileToRead = fopen(path, "r");
     clock_t start, end;
-    int c = 0, count = 0;
+    int num_el = 1000, count = 0;
     double time_used = 0;
     if(fileToRead != NULL) {
         //time_t end = time(NULL)+5;
-        while (c != EOF) {
-            buffer[0] = (char) c;
+        while (num_el == 1000) {
             start = clock();
-            c = fgetc(fileToRead);
+            num_el = fread(buffer, 1, 1000, fileToRead);
             end = clock();
-            count++;
+            count+=num_el;
             time_used += ((double) (end - start)) / CLOCKS_PER_SEC;
         }
         double throughput = count/time_used;

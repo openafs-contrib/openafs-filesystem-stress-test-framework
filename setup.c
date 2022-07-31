@@ -34,7 +34,7 @@ void createFile(char path[], unsigned num){
     if(fileToWrite != NULL){
         if(num<read_f){
             for(int i = 0; i<104000000; i++){
-                fprintf(fileToWrite, "%d\n", i);
+                fprintf(fileToWrite, "%d\n", i*1000);
             }
         }
         else{
