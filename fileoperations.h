@@ -13,5 +13,5 @@ void addToFile(char path[]);
 void overwriteFile(char data[], char path[]);
 double read_Sequential(char path[]);
 void copyContents(char pathSource[], char pathDest[]);
-void renameFile(char pathSource[], int dirNum);
+double renameFile(char pathSource[], int dirNum);
 void deleteFile(char pathSource[]);

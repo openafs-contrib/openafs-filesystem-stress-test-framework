@@ -107,12 +107,23 @@ void copyContents(char pathSource[], char pathDest[]){
  * @param pathSource
  * @param dirNum
  */
-void renameFile(char pathSource[], int dirNum){
+double renameFile(char pathSource[], int dirNum){
     parseConfig();
     char pathDest[56];
     int filenum = rand() % files+100;
     sprintf(pathDest, FILEFORMAT, dirNum, filenum);
-    if(rename(pathSource, pathDest) != 0) file_miss_count++;
+
+    clock_t start, end;
+    start = clock();
+    int status = rename(pathSource, pathDest);
+    end = clock();
+    double time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+    if(status!= 0){
+        file_miss_count++;
+        return -1;
+    }
+    return time_used;
 }
 
 /**
