@@ -16,4 +16,5 @@ extern int time_of_test;
 extern int directories;
 extern int files;
 extern int read_f;
+extern int create_chance;
 void parseConfig();

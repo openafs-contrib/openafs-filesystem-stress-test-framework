@@ -16,6 +16,7 @@ int time_of_test;
 int directories;
 int files;
 int read_f;
+int create_chance;
 
 void parseConfig(){
     FILE* config = fopen("config.cfg", "r");
@@ -59,6 +60,10 @@ void parseConfig(){
             else if(strstr(token, "read_f")!=NULL){
                 token = strtok(NULL, "=");
                 read_f = atoi(token);
+            }
+            else if(strstr(token, "create")!=NULL){
+                token = strtok(NULL, "=");
+                create_chance = atoi(token);
             }
             else{
                 fprintf(stderr, "config contains unknown key:value pair");
