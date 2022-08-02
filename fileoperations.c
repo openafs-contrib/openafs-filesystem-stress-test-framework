@@ -21,16 +21,25 @@ int file_miss_count = 0;
  * simple function to append a file with a given path
  * @param path
  */
-void addToFile(char path[]){
+double addToFile(char path[]){
     FILE* fileToAppend = NULL;
     fileToAppend = fopen(path, "a+");
     //adds 100 lines of the following text
+    clock_t start, end;
+    double time_used = 0;
     if(fileToAppend != NULL){
-        for(int i = 0; i< 100; i++) fprintf(fileToAppend, "data inserted during test\n");
+        for(int i = 0; i<100; i++){
+            start = clock();
+            fprintf(fileToAppend, "data inserted during test\n");
+            end = clock();
+            time_used += ((double) (end - start)) / CLOCKS_PER_SEC;
+        }
         fclose(fileToAppend);
+        return time_used/100;
     }
     else{
         file_miss_count++;
+        return -1;
     }
 }
 
@@ -130,8 +139,35 @@ double renameFile(char pathSource[], int dirNum){
  * deletes a given file
  * @param pathSource
  */
-void deleteFile(char pathSource[]){
-    if(remove(pathSource)) file_miss_count++;
+double deleteFile(char pathSource[]){
+    clock_t start, end;
+    start = clock();
+    int status = remove(pathSource);
+    end = clock();
+    double time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+
+    if(status!= 0){
+        file_miss_count++;
+        return -1;
+    }
+    return time_used;
 }
 
+/**
+ * creates file
+ * @param pathSource
+ */
+double createFile(char path[]){
+    clock_t start, end;
+    start = clock();
+    FILE *newFile = fopen(path, "w+");
+    end = clock();
+    double time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
 
+    if(newFile == NULL){
+        file_miss_count++;
+        return -1;
+    }
+    fclose(newFile);
+    return time_used;
+}

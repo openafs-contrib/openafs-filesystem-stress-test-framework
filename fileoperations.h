@@ -9,9 +9,10 @@
 extern char global_buffer[];
 extern int file_miss_count;
 
-void addToFile(char path[]);
+double addToFile(char path[]);
 void overwriteFile(char data[], char path[]);
 double read_Sequential(char path[]);
 void copyContents(char pathSource[], char pathDest[]);
 double renameFile(char pathSource[], int dirNum);
-void deleteFile(char pathSource[]);
+double deleteFile(char pathSource[]);
+double createFile(char path[]);
