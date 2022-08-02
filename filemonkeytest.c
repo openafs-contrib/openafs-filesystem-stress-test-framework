@@ -33,8 +33,10 @@ int main(int argc, char** argv){
     //cpu time variables
     clock_t start, end;
     double cpu_time_used;
-    FILE* timep = fopen("cpu-time.txt", "w+");
-    FILE* read_time = fopen("read-metrics.txt", "w+");
+    mkdir("metrics", 0777);
+    FILE* timep = fopen("metrics/cpu-time.txt", "w+");
+    FILE* read_time = fopen("metrics/read-metrics.txt", "w+");
+    FILE* rename_time = fopen("metrics/rename-metrics.txt", "w+");
     FILE* filesused = fopen("files-used.txt", "a+");
     //setting up the seed and timing
     srand(rand());
@@ -67,7 +69,8 @@ int main(int argc, char** argv){
             if (rand() % 100 < copy_chance) copyContents(filename, filenameCopy);
 
             if (rand() % 100 < rename_chance) {
-                renameFile(filenameCopy, dirnum);
+                double rename_t = renameFile(filenameCopy, dirnum);
+                if(rename_t != -1) fprintf(rename_time, "%f\n", rename_t);
             }
             if (rand() % 100 < delete_chance) {
                 deleteFile(filename);
