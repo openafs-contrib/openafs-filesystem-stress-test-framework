@@ -30,14 +30,17 @@ int main(int argc, char** argv){
     char dirName[32];
     char filename[56];
     char filenameCopy[56];
-    //cpu time variables
-    clock_t start, end;
-    double cpu_time_used;
+
+    //metrics
     mkdir("metrics", 0777);
-    FILE* timep = fopen("metrics/cpu-time.txt", "w+");
-    FILE* read_time = fopen("metrics/read-metrics.txt", "w+");
-    FILE* rename_time = fopen("metrics/rename-metrics.txt", "w+");
-    FILE* filesused = fopen("files-used.txt", "a+");
+    FILE* append_time = fopen("metrics/append-metrics.txt", "a+");
+    FILE* read_throughput = fopen("metrics/read-metrics.txt", "a+");
+    FILE* rename_time = fopen("metrics/rename-metrics.txt", "a+");
+    FILE* delete_time = fopen("metrics/delete-metrics.txt", "a+");
+    FILE* filesused = fopen("metrics/files-used.txt", "a+");
+    if(append_time == NULL || read_throughput == NULL || rename_time == NULL || delete_time == NULL || filesused == NULL){
+        exit(-1);
+    }
     //setting up the seed and timing
     srand(rand());
     time_t end_of_test = time(NULL)+time_of_test*60;
@@ -55,15 +58,12 @@ int main(int argc, char** argv){
 
         if(filenum<read_f){
             double read_t = read_Sequential(filename);
-            if(read_t != -1) fprintf(read_time, "%f\n", read_t);
+            if(read_t != -1) fprintf(read_throughput, "%f\n", read_t);
         }
         else {
             if (rand() % 100 < write_chance) {
-                start = clock();
-                addToFile(filename);
-                end = clock();
-                cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-                fprintf(timep, "%f\n", cpu_time_used);
+                double append_t = addToFile(filename);
+                if(append_t != -1) fprintf(append_time, "%f\n", append_t);
             }
 
             if (rand() % 100 < copy_chance) copyContents(filename, filenameCopy);
@@ -72,17 +72,22 @@ int main(int argc, char** argv){
                 double rename_t = renameFile(filenameCopy, dirnum);
                 if(rename_t != -1) fprintf(rename_time, "%f\n", rename_t);
             }
+
             if (rand() % 100 < delete_chance) {
-                deleteFile(filename);
+                double delete_t = deleteFile(filename);
+                if(delete_t != -1) fprintf(delete_time, "%f\n", delete_t);
             }
         }
 
     }
 
     //closing log files
-    fclose(timep);
+    fclose(append_time);
+    fclose(rename_time);
+    fclose(read_throughput);
     fclose(filesused);
-    fclose(read_time);
+    fclose(delete_time);
+
     return 0;
 
 }
