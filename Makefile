@@ -1,7 +1,6 @@
 clean:
 	rm -rf `find . -type d -name 'testFiles*'`
-	rm -f cpu-time.txt
-	rm -f files-used.txt
+	rm -rf metrics
 
 removeexec:
 	rm -f setupexec
