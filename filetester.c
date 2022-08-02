@@ -30,7 +30,7 @@ int main(int argc, char** argv){
             return 1;
         }
         else if (pid == 0) {
-            printf("[son] pid %d from [parent] pid %d\n",getpid(),getppid());
+            printf("child process %d from parent process %d\n",getpid(),getppid());
             //printf("%d\t%d\n", baseDir, offset);
             execvp(execString, args);
             exit(0);
