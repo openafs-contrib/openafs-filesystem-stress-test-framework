@@ -37,6 +37,7 @@ int main(int argc, char** argv){
     FILE* read_throughput = fopen("metrics/read-metrics.txt", "a+");
     FILE* rename_time = fopen("metrics/rename-metrics.txt", "a+");
     FILE* delete_time = fopen("metrics/delete-metrics.txt", "a+");
+    FILE* create_time = fopen("metrics/create-metrics.txt", "a+");
     FILE* filesused = fopen("metrics/files-used.txt", "a+");
     if(append_time == NULL || read_throughput == NULL || rename_time == NULL || delete_time == NULL || filesused == NULL){
         exit(-1);
@@ -77,6 +78,12 @@ int main(int argc, char** argv){
             if (rand() % 100 < delete_chance) {
                 double delete_t = deleteFile(filename);
                 if(delete_t != -1) fprintf(delete_time, "%f\n", delete_t);
+            }
+            if (rand() % 100 < create_chance) {
+                char path[50];
+                sprintf(path, "%s/created_file%d.txt", dirName, filenum+100);
+                double create_t = createFile(path);
+                if(create_t != -1) fprintf(create_time, "%f\n", create_t);
             }
         }
 
