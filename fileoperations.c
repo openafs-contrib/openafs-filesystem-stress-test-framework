@@ -26,17 +26,17 @@ double addToFile(char path[]){
     FILE* fileToAppend = NULL;
     fileToAppend = fopen(path, "a+");
     //adds 100 lines of the following text
-    clock_t start, end;
+    struct timeval start, end;
     double time_used = 0;
     if(fileToAppend != NULL){
         for(int i = 0; i<100; i++){
-            start = clock();
+            gettimeofday(&start, NULL);
             fprintf(fileToAppend, "data inserted during test\n");
-            end = clock();
-            time_used += ((double) (end - start)) / CLOCKS_PER_SEC;
+            gettimeofday(&end, NULL);
+            time_used += (double) (end.tv_sec-start.tv_sec)+ (double)(end.tv_usec-start.tv_usec)/1000000;
         }
         fclose(fileToAppend);
-        return time_used/100;
+        return time_used;
     }
     else{
         file_miss_count++;
@@ -124,11 +124,11 @@ double renameFile(char pathSource[], int dirNum){
     int filenum = rand() % files+100;
     sprintf(pathDest, FILEFORMAT, dirNum, filenum);
 
-    clock_t start, end;
-    start = clock();
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     int status = rename(pathSource, pathDest);
-    end = clock();
-    double time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    gettimeofday(&end, NULL);
+    double time_used = (double) (end.tv_sec-start.tv_sec)+ (double)(end.tv_usec-start.tv_usec)/1000000;
 
     if(status!= 0){
         file_miss_count++;
@@ -142,11 +142,11 @@ double renameFile(char pathSource[], int dirNum){
  * @param pathSource
  */
 double deleteFile(char pathSource[]){
-    clock_t start, end;
-    start = clock();
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     int status = remove(pathSource);
-    end = clock();
-    double time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    gettimeofday(&end, NULL);
+    double time_used = (double) (end.tv_sec-start.tv_sec)+ (double)(end.tv_usec-start.tv_usec)/1000000;
 
     if(status!= 0){
         file_miss_count++;
@@ -160,11 +160,11 @@ double deleteFile(char pathSource[]){
  * @param pathSource
  */
 double createFile(char path[]){
-    clock_t start, end;
-    start = clock();
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     FILE *newFile = fopen(path, "w+");
-    end = clock();
-    double time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    gettimeofday(&end, NULL);
+    double time_used = (double) (end.tv_sec-start.tv_sec)+ (double)(end.tv_usec-start.tv_usec)/1000000;
 
     if(newFile == NULL){
         file_miss_count++;
