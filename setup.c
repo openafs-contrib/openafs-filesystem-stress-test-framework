@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <stdlib.h>
 #include "config-parser.h"
 
 void createFile(char path[], unsigned num);
@@ -31,16 +32,19 @@ void createFile(char path[], unsigned num){
     sprintf(filename, "%s/testfile%i.txt", path, num);
     FILE* fileToWrite = NULL;
     fileToWrite = fopen(filename, "w+");
+    char fileCreation[100];
+    sprintf(fileCreation, "dd if=/dev/random of=%s oflag=direct bs=1M count=2048", filename);
+    //
+
     if(fileToWrite != NULL){
         if(num<read_f){
-            for(int i = 0; i<104000000; i++){
-                fprintf(fileToWrite, "%d\n", i*1000);
-            }
+            system(fileCreation);
         }
         else{
             fprintf(fileToWrite, "test-file-generated\n");
         }
     }
+
     fclose(fileToWrite);
 }
 

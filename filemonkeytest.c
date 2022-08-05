@@ -51,12 +51,13 @@ int main(int argc, char** argv){
         int filenum = rand() % files;
         sprintf(dirName, "testFiles-%i", dirnum);
         sprintf(filename, "%s/testfile%i.txt", dirName, filenum);
-        sprintf(filenameCopy, "%s/testfile%i.txt", dirName, filenum/2);
+        sprintf(filenameCopy, "%s/testfile%i.txt", dirName, filenum+1);
 
 
-        fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
+        //fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
 
         if(filenum<read_f){
+            fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
             double read_t = read_Sequential(filename);
             if(read_t != -1) fprintf(read_throughput, "%f\n", read_t);
         }

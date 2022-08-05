@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <sys/time.h>
 #include "time.h"
 #include "config-parser.h"
 
@@ -64,21 +65,22 @@ void overwriteFile(char data[], char path[]){
  * @param path
  */
 double read_Sequential(char path[]){
-    char buffer[1000000];
+    unsigned char buffer[1000000];
     FILE* fileToRead = fopen(path, "r");
-    clock_t start, end;
-    int num_el = 1000, count = 0;
+    struct timeval start, end;
+    unsigned long num_el = 1000000, count = 0;
     double time_used = 0;
     if(fileToRead != NULL) {
         //time_t end = time(NULL)+5;
-        while (num_el == 1000) {
-            start = clock();
-            num_el = fread(buffer, 1, 1000, fileToRead);
-            end = clock();
+        gettimeofday(&start, NULL);
+        while (num_el == 1000000) {
+            num_el = fread(buffer, 1, 1000000, fileToRead);
             count+=num_el;
-            time_used += ((double) (end - start)) / CLOCKS_PER_SEC;
         }
-        double throughput = count/time_used;
+        gettimeofday(&end, NULL);
+        time_used = (double) (end.tv_sec-start.tv_sec)*1000000+ (double)(end.tv_usec-start.tv_usec);
+
+        double throughput = (double) (count*1000000/time_used);
         fclose(fileToRead);
         return throughput;
     }
