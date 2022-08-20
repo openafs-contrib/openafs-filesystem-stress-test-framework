@@ -8,7 +8,6 @@
 #include "config-parser.h"
 
 void createFile(char path[], unsigned num);
-
 /**
  * establishes the test directories and populates them with 100 files
  * @param num
@@ -33,7 +32,7 @@ void createFile(char path[], unsigned num){
     FILE* fileToWrite = NULL;
     fileToWrite = fopen(filename, "w+");
     char fileCreation[100];
-    sprintf(fileCreation, "dd if=/dev/random of=%s oflag=direct bs=1M count=2048", filename);
+    sprintf(fileCreation, "dd if=/dev/random of=%s oflag=direct,sync bs=1M count=1024", filename);
     //
 
     if(fileToWrite != NULL){
@@ -47,6 +46,7 @@ void createFile(char path[], unsigned num){
 
     fclose(fileToWrite);
 }
+
 
 /**
  * sets up 16 test directories

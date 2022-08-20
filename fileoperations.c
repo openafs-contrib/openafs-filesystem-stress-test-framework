@@ -2,6 +2,9 @@
 // Created by arniejhingran on 6/28/22.
 // List of file operations utilized by the tester
 //
+
+#define _GNU_SOURCE
+
 #include "stdio.h"
 #include "string.h"
 #include <sys/types.h>
@@ -10,9 +13,10 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <sys/time.h>
+#include <fcntl.h>
+#include <wait.h>
 #include "time.h"
 #include "config-parser.h"
-
 #define FILEFORMAT "testFiles-%i/testfile%i.txt"
 char global_buffer[10];
 int file_miss_count = 0;
@@ -66,22 +70,26 @@ void overwriteFile(char data[], char path[]){
  */
 double read_Sequential(char path[]){
     unsigned char buffer[1000000];
-    FILE* fileToRead = fopen(path, "r");
+    //FILE* fileToRead = fopen(path, "r");
+    int fd;
+    fd = open(path ,O_RDONLY | O_SYNC);
     struct timeval start, end;
-    unsigned long num_el = 1000000, count = 0;
+    long num_el = -1, count = 0;
+    ssize_t num;
     double time_used = 0;
-    if(fileToRead != NULL) {
+    if(fd != -1) {
         //time_t end = time(NULL)+5;
         gettimeofday(&start, NULL);
-        while (num_el == 1000000) {
-            num_el = fread(buffer, 1, 1000000, fileToRead);
-            count+=num_el;
+        //num = read(fd, buffer, 1000000);
+        while (read(fd, buffer, 1000000) == 1000000) {
+            //num_el = fread(buffer, 1, 1000000, fileToRead);
+            count+=1000000;
         }
         gettimeofday(&end, NULL);
         time_used = (double) (end.tv_sec-start.tv_sec)*1000000+ (double)(end.tv_usec-start.tv_usec);
 
         double throughput = (double) (count*1000000/time_used);
-        fclose(fileToRead);
+        close(fd);
         return throughput;
     }
     else{

@@ -55,7 +55,7 @@ int main(int argc, char** argv){
         sprintf(filenameCopy, "%s/testfile%i.txt", dirName, filenum+1);
 
 
-        //fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
+        fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
 
         if(filenum<read_f){
             fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
