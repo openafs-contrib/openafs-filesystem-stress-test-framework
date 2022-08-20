@@ -34,7 +34,8 @@ int main(int argc, char** argv){
     //metrics
     mkdir("metrics", 0777);
     FILE* append_time = fopen("metrics/append-metrics.txt", "a+");
-    FILE* read_throughput = fopen("metrics/read-metrics.txt", "a+");
+    FILE* read_throughput = fopen("metrics/read-metrics-seq.txt", "a+");
+    FILE* read_rand = fopen("metrics/read-metrics-rand.txt", "a+");
     FILE* rename_time = fopen("metrics/rename-metrics.txt", "a+");
     FILE* delete_time = fopen("metrics/delete-metrics.txt", "a+");
     FILE* create_time = fopen("metrics/create-metrics.txt", "a+");
@@ -60,7 +61,9 @@ int main(int argc, char** argv){
         if(filenum<read_f){
             fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
             double read_t = read_Sequential(filename);
+            double read_rand_t = random_Read(filename);
             if(read_t != -1) fprintf(read_throughput, "%f\n", read_t);
+            if(read_rand_t != -1) fprintf(read_rand, "%f\n", read_rand_t);
         }
         else {
             if (rand() % 100 < write_chance) {

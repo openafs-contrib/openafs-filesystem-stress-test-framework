@@ -16,3 +16,4 @@ void copyContents(char pathSource[], char pathDest[]);
 double renameFile(char pathSource[], int dirNum);
 double deleteFile(char pathSource[]);
 double createFile(char path[]);
+double random_Read(char path[]);

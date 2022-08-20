@@ -69,21 +69,48 @@ void overwriteFile(char data[], char path[]){
  * @param path
  */
 double read_Sequential(char path[]){
-    unsigned char buffer[1000000];
-    //FILE* fileToRead = fopen(path, "r");
+    unsigned char buffer[10000];
     int fd;
     fd = open(path ,O_RDONLY | O_SYNC);
     struct timeval start, end;
-    long num_el = -1, count = 0;
-    ssize_t num;
+    long count = 0;
     double time_used = 0;
     if(fd != -1) {
         //time_t end = time(NULL)+5;
         gettimeofday(&start, NULL);
         //num = read(fd, buffer, 1000000);
-        while (read(fd, buffer, 1000000) == 1000000) {
+        while (read(fd, buffer, 10000) == 10000) {
             //num_el = fread(buffer, 1, 1000000, fileToRead);
-            count+=1000000;
+            count+=10000;
+        }
+        gettimeofday(&end, NULL);
+        time_used = (double) (end.tv_sec-start.tv_sec)*1000000+ (double)(end.tv_usec-start.tv_usec);
+
+        double throughput = (double) (count*1000000/time_used);
+        close(fd);
+        return throughput;
+    }
+    else{
+        file_miss_count++;
+        return -1;
+    }
+}
+
+double random_Read(char path[]) {
+    srand(rand());
+    unsigned char buffer[10000];
+    int fd;
+    fd = open(path ,O_RDONLY | O_SYNC);
+    struct timeval start, end;
+    long count = 0;
+    double time_used = 0;
+    if(fd != -1) {
+        //time_t end = time(NULL)+5;
+        gettimeofday(&start, NULL);
+        //num = read(fd, buffer, 1000000);
+        while (read(fd, buffer, 10000) == 10000) {
+            lseek(fd, rand()%1000000, SEEK_CUR);
+            count+=10000;
         }
         gettimeofday(&end, NULL);
         time_used = (double) (end.tv_sec-start.tv_sec)*1000000+ (double)(end.tv_usec-start.tv_usec);
