@@ -9,7 +9,7 @@
 
 void createFile(char path[], unsigned num);
 /**
- * establishes the test directories and populates them with 100 files
+ * establishes the test directories and populates them with n files based on config
  * @param num
  */
 void setupTestDirectory(unsigned num){
@@ -49,7 +49,7 @@ void createFile(char path[], unsigned num){
 
 
 /**
- * sets up 16 test directories
+ * sets up n test directories
  * @return
  */
 int main(){

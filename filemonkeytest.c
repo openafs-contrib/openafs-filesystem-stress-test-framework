@@ -10,7 +10,8 @@
 #include "config-parser.h"
 
 /**
- * tester runs on directories 0-8, manipulating random files with random operations
+ * based on the config file, the tester biases towards or against certain file operations
+ * all metrics are recording and saved to the metrics folder
  * @return
  */
 int main(int argc, char** argv){

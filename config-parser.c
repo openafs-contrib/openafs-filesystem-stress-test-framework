@@ -18,6 +18,9 @@ int files;
 int read_f;
 int create_chance;
 
+/**
+ * parses the config file and sets global variables
+ */
 void parseConfig(){
     FILE* config = fopen("config.cfg", "r");
     char config_line[25];

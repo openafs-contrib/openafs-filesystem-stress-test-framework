@@ -24,6 +24,7 @@ int file_miss_count = 0;
 
 /**
  * simple function to append a file with a given path
+ * records time taken in absolute wall time to do the add operation and returns the value
  * @param path
  */
 double addToFile(char path[]){
@@ -65,8 +66,10 @@ void overwriteFile(char data[], char path[]){
 }
 
 /**
- * reads the first 10000 characters from the file into the buffer
+ * reads the entire file sequentially and records the throughput value
+ * caching is partially minimized due to O_SYNC, O_Direct implementation coming...
  * @param path
+ * @return throughput
  */
 double read_Sequential(char path[]){
     unsigned char buffer[10000];
@@ -96,6 +99,12 @@ double read_Sequential(char path[]){
     }
 }
 
+/**
+ * randomly reads from the file based on a random offset
+ * returns the throughput
+ * @param path
+ * @return throughput
+ */
 double random_Read(char path[]) {
     srand(rand());
     unsigned char buffer[10000];
@@ -150,6 +159,7 @@ void copyContents(char pathSource[], char pathDest[]){
 
 /**
  * renames a given file
+ * records the time the operation takes and returns
  * @param pathSource
  * @param dirNum
  */
@@ -174,6 +184,7 @@ double renameFile(char pathSource[], int dirNum){
 
 /**
  * deletes a given file
+ * records the time the operation takes and returns
  * @param pathSource
  */
 double deleteFile(char pathSource[]){
@@ -192,6 +203,7 @@ double deleteFile(char pathSource[]){
 
 /**
  * creates file
+ * records the time the operation takes and returns
  * @param pathSource
  */
 double createFile(char path[]){

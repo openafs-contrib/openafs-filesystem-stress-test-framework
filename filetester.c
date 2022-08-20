@@ -8,7 +8,7 @@
 #include "config-parser.h"
 #define execString "./filemonkeytester"
 /**
- * runs the two executables in parallel, each manipulating 8 directories
+ * based on the config file, n number of parallel executables are created running on a certain num of directories each
  * @return
  */
 int main(int argc, char** argv){
