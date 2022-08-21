@@ -118,7 +118,7 @@ double random_Read(char path[]) {
         gettimeofday(&start, NULL);
         //num = read(fd, buffer, 1000000);
         while (read(fd, buffer, 10000) == 10000) {
-            lseek(fd, rand()%1000000, SEEK_CUR);
+            lseek(fd, rand()%50000, SEEK_CUR);
             count+=10000;
         }
         gettimeofday(&end, NULL);
