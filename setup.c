@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <stdlib.h>
+#include<unistd.h>
 #include "config-parser.h"
 
 void createFile(char path[], unsigned num);
@@ -54,6 +55,8 @@ void createFile(char path[], unsigned num){
  */
 int main(){
     parseConfig();
+    mkdir("test-directory", 0777);
+    chdir("test-directory");
     for(int i = 0; i<directories; i++){
         setupTestDirectory(i);
     }

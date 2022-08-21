@@ -3,6 +3,7 @@ clean:
 	@rm -rf `find . -type d -name 'testFiles*'`
 	@rm -rf metrics
 	@echo "Cleaned"
+	@rm -rf test-directory
 
 removeexec:
 	rm -f setupexec
