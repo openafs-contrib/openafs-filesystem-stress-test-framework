@@ -41,5 +41,5 @@ Run ```make reset``` to clean, setup, and run the test suite again
 
 Script to parse the data and visual will be implemented soon
 
-##Running on OpenAFS
+## Running on OpenAFS
 **Bash Script to scp this package and run on multiple machines will be implemented soon**
