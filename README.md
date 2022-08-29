@@ -19,10 +19,10 @@ Throughout the test certain metrics will be recorded and dumped into correspondi
 
 ## Initialization
 
-###Edit *config.cfg* before setup
+### Edit *config.cfg* before setup
 The formatting of *config.cfg* is of a key value pair with "=" as the delimiter
 
-###Setting up test directories and files
+### Setting up test directories and files
 Run ```make init``` to establish the test files and test directories. Directories will be in the format of **testFiles-#**
 inside of the **TestDirectory** directory
 
