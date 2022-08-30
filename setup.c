@@ -33,7 +33,7 @@ void createFile(char path[], unsigned num){
     FILE* fileToWrite = NULL;
     fileToWrite = fopen(filename, "w+");
     char fileCreation[100];
-    sprintf(fileCreation, "dd if=/dev/random of=%s oflag=direct,sync bs=1M count=1024", filename);
+    sprintf(fileCreation, "dd if=/dev/random of=%s oflag=direct,sync bs=1M count=1024 2>&1", filename);
     //
 
     if(fileToWrite != NULL){
