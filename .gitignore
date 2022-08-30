@@ -13,3 +13,4 @@ setup
 filemonkeytester
 metrics
 /test-directory
+!requirements.txt

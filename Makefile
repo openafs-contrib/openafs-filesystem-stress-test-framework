@@ -35,3 +35,6 @@ fileexec-1: fileoperations.c filemonkeytest-1.c
 fileexec-2: fileoperations.c filemonkeytest-2.c
 	@gcc -o fileexec-2 filemonkeytest-2.c fileoperations.c -Wall
 reset: clean init run
+viewplots: requirements.txt metrics-scraper.py
+	@pip install -r requirements.txt > pylog.txt
+	@python3 metrics-scraper.py
