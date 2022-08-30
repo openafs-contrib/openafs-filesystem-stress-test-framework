@@ -1,11 +1,11 @@
 //
 // Created by arniejhingran on 7/13/22.
 //
-#include "stdio.h"
-#include "string.h"
+#include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <stdlib.h>
-#include "time.h"
+#include <time.h>
 #include "fileoperations.h"
 #include "config-parser.h"
 
@@ -20,6 +20,8 @@ int main(int argc, char** argv){
         return 15;
     }
     parseConfig();
+    printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t", cores, write_chance, copy_chance, delete_chance, rename_chance, time_of_test, directories, files, read_f, create_chance);
+
     //setup fields for names of directories and files
     char* dirLowerBound = *(argv+2);
     char* offsetArg = *(argv+1);
@@ -48,16 +50,17 @@ int main(int argc, char** argv){
     srand(rand());
     time_t end_of_test = time(NULL)+time_of_test*60;
 
-    //tests for 5 minutes
+    //tests for n minutes
     while(time(NULL)<= end_of_test){
         int dirnum = rand() % offset + lowerBound;
         int filenum = rand() % files;
-        sprintf(dirName, "testFiles-%i", dirnum);
+        sprintf(dirName, "test-directory/testFiles-%i", dirnum);
         sprintf(filename, "%s/testfile%i.txt", dirName, filenum);
         sprintf(filenameCopy, "%s/testfile%i.txt", dirName, filenum+1);
 
 
         fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
+
 
         if(filenum<read_f){
             fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
@@ -66,12 +69,12 @@ int main(int argc, char** argv){
             if(read_t != -1) fprintf(read_throughput, "%f\n", read_t);
             if(read_rand_t != -1) fprintf(read_rand, "%f\n", read_rand_t);
         }
+
         else {
             if (rand() % 100 < write_chance) {
                 double append_t = addToFile(filename);
                 if(append_t != -1) fprintf(append_time, "%f\n", append_t);
             }
-
             if (rand() % 100 < copy_chance) copyContents(filename, filenameCopy);
 
             if (rand() % 100 < rename_chance) {
