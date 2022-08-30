@@ -1,10 +1,10 @@
 //
 // Created by arniejhingran on 7/13/22.
 //
+#include <stdio.h>
 #include <stdlib.h>
 #include <wait.h>
-#include "stdio.h"
-#include "unistd.h"
+#include <unistd.h>
 #include "config-parser.h"
 #define execString "./filemonkeytester"
 /**

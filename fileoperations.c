@@ -5,17 +5,12 @@
 
 #define _GNU_SOURCE
 
-#include "stdio.h"
-#include "string.h"
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <limits.h>
 #include <sys/time.h>
 #include <fcntl.h>
-#include <wait.h>
-#include "time.h"
 #include "config-parser.h"
 #define FILEFORMAT "testFiles-%i/testfile%i.txt"
 char global_buffer[10];
