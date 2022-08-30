@@ -2,6 +2,7 @@ clean:
 	@echo "Cleaning test files..."
 	@rm -rf `find . -type d -name 'testFiles*'`
 	@rm -rf metrics
+	@rm log.txt
 	@echo "Cleaned"
 	@rm -rf test-directory
 
