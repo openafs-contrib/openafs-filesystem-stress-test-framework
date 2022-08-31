@@ -12,7 +12,7 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include "config-parser.h"
-#define FILEFORMAT "testFiles-%i/testfile%i.txt"
+#define FILEFORMAT "test-directory/testFiles-%i/testfile%i.txt"
 char global_buffer[10];
 int file_miss_count = 0;
 
