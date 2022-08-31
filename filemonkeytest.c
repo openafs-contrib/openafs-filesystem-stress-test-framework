@@ -61,7 +61,6 @@ int main(int argc, char** argv){
 
         fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
 
-
         if(filenum<read_f){
             fprintf(filesused,"%s\t%d\n", filename, file_miss_count);
             double read_t = read_Sequential(filename);
@@ -79,6 +78,7 @@ int main(int argc, char** argv){
 
             if (rand() % 100 < rename_chance) {
                 double rename_t = renameFile(filenameCopy, dirnum);
+                printf("%f", rename_t);
                 if(rename_t != -1) fprintf(rename_time, "%f\n", rename_t);
             }
 
