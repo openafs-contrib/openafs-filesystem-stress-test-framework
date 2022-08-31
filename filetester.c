@@ -1,14 +1,14 @@
 //
 // Created by arniejhingran on 7/13/22.
 //
+#include <stdio.h>
 #include <stdlib.h>
 #include <wait.h>
-#include "stdio.h"
-#include "unistd.h"
+#include <unistd.h>
 #include "config-parser.h"
 #define execString "./filemonkeytester"
 /**
- * runs the two executables in parallel, each manipulating 8 directories
+ * based on the config file, n number of parallel executables are created running on a certain num of directories each
  * @return
  */
 int main(int argc, char** argv){
@@ -30,7 +30,7 @@ int main(int argc, char** argv){
             return 1;
         }
         else if (pid == 0) {
-            printf("[son] pid %d from [parent] pid %d\n",getpid(),getppid());
+            printf("child process %d from parent process %d\n",getpid(),getppid());
             //printf("%d\t%d\n", baseDir, offset);
             execvp(execString, args);
             exit(0);

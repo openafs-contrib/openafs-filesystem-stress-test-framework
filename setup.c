@@ -4,12 +4,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "config-parser.h"
 
 void createFile(char path[], unsigned num);
-
 /**
- * establishes the test directories and populates them with 100 files
+ * establishes the test directories and populates them with n files based on config
  * @param num
  */
 void setupTestDirectory(unsigned num){
@@ -31,18 +32,31 @@ void createFile(char path[], unsigned num){
     sprintf(filename, "%s/testfile%i.txt", path, num);
     FILE* fileToWrite = NULL;
     fileToWrite = fopen(filename, "w+");
+    char fileCreation[100];
+    sprintf(fileCreation, "dd if=/dev/random of=%s oflag=direct,sync bs=1M count=1024 2>&1", filename);
+    //
+
     if(fileToWrite != NULL){
-        fprintf(fileToWrite, "test-file-generated\n");
+        if(num<read_f){
+            system(fileCreation);
+        }
+        else{
+            fprintf(fileToWrite, "test-file-generated\n");
+        }
     }
+
     fclose(fileToWrite);
 }
 
+
 /**
- * sets up 16 test directories
+ * sets up n test directories
  * @return
  */
 int main(){
     parseConfig();
+    mkdir("test-directory", 0777);
+    chdir("test-directory");
     for(int i = 0; i<directories; i++){
         setupTestDirectory(i);
     }

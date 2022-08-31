@@ -1,7 +1,10 @@
 clean:
-	rm -rf `find . -type d -name 'testFiles*'`
-	rm -f cpu-time.txt
-	rm -f files-used.txt
+	@echo "Cleaning test files..."
+	@rm -rf `find . -type d -name 'testFiles*'`
+	@rm -rf metrics
+	@rm -f log.txt
+	@echo "Cleaned"
+	@rm -rf test-directory
 
 removeexec:
 	rm -f setupexec
@@ -12,23 +15,27 @@ removeexec:
 	rm -f fileexec
 
 init: setupexec
-	./setupexec
+	@echo "Setting up test directories and files... (Will take some time)"
+	@./setupexec > log.txt
 
 setupexec: setup.c config-parser.c
-	gcc -o setupexec setup.c config-parser.c -Wall
+	@gcc -o setupexec setup.c config-parser.c -Wall
 
 run: fileexec
-	./fileexec
+	@./fileexec > log.txt
 
 fileexec: filetest filetester.c config-parser.c
-	gcc -o fileexec filetester.c config-parser.c -Wall
+	@gcc -o fileexec filetester.c config-parser.c -Wall
 
 filetest: filemonkeytest.c fileoperations.c config-parser.c
-	gcc -o filemonkeytester filemonkeytest.c fileoperations.c config-parser.c -Wall
+	@gcc -o filemonkeytester filemonkeytest.c fileoperations.c config-parser.c -Wall
 
 fileexec-1: fileoperations.c filemonkeytest-1.c
-	gcc -o fileexec-1 filemonkeytest-1.c fileoperations.c -Wall
+	@gcc -o fileexec-1 filemonkeytest-1.c fileoperations.c -Wall
 
 fileexec-2: fileoperations.c filemonkeytest-2.c
-	gcc -o fileexec-2 filemonkeytest-2.c fileoperations.c -Wall
+	@gcc -o fileexec-2 filemonkeytest-2.c fileoperations.c -Wall
 reset: clean init run
+viewplots: requirements.txt metrics-scraper.py
+	@pip install -r requirements.txt > pylog.txt
+	@python3 metrics-scraper.py

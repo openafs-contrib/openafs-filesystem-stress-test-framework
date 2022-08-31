@@ -6,12 +6,14 @@
 #define OPENAFS_FILESYSTEM_STRESS_TEST_FRAMEWORK_FILEOPERATIONS_H
 
 #endif //OPENAFS_FILESYSTEM_STRESS_TEST_FRAMEWORK_FILEOPERATIONS_H
-extern char buffer[];
+extern char global_buffer[];
 extern int file_miss_count;
 
-void addToFile(char path[]);
+double addToFile(char path[]);
 void overwriteFile(char data[], char path[]);
-void readIntoBuffer(char path[]);
+double read_Sequential(char path[]);
 void copyContents(char pathSource[], char pathDest[]);
-void renameFile(char pathSource[], int dirNum);
-void deleteFile(char pathSource[]);
+double renameFile(char pathSource[], int dirNum);
+double deleteFile(char pathSource[]);
+double createFile(char path[]);
+double random_Read(char path[]);

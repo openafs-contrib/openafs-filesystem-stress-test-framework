@@ -11,3 +11,6 @@ fileexec-1
 fileexec-2
 setup
 filemonkeytester
+metrics
+/test-directory
+!requirements.txt
