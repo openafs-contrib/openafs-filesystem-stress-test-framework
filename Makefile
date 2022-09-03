@@ -3,6 +3,7 @@ clean:
 	@rm -rf `find . -type d -name 'testFiles*'`
 	@rm -rf metrics
 	@rm -f log.txt
+	@rm -f pylog.txt
 	@echo "Cleaned"
 	@rm -rf test-directory
 
@@ -22,6 +23,7 @@ setupexec: setup.c config-parser.c
 	@gcc -o setupexec setup.c config-parser.c -Wall
 
 run: fileexec
+	@echo "Running test suite..."
 	@./fileexec > log.txt
 
 fileexec: filetest filetester.c config-parser.c
@@ -30,12 +32,8 @@ fileexec: filetest filetester.c config-parser.c
 filetest: filemonkeytest.c fileoperations.c config-parser.c
 	@gcc -o filemonkeytester filemonkeytest.c fileoperations.c config-parser.c -Wall
 
-fileexec-1: fileoperations.c filemonkeytest-1.c
-	@gcc -o fileexec-1 filemonkeytest-1.c fileoperations.c -Wall
-
-fileexec-2: fileoperations.c filemonkeytest-2.c
-	@gcc -o fileexec-2 filemonkeytest-2.c fileoperations.c -Wall
 reset: clean init run
+
 viewplots: requirements.txt metrics-scraper.py
 	@pip install -r requirements.txt > pylog.txt
 	@python3 metrics-scraper.py
