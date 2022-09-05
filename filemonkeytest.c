@@ -9,8 +9,6 @@
 #include "fileoperations.h"
 #include "config-parser.h"
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-msc50-cpp"
 /**
  * based on the config file, the tester biases towards or against certain file operations
  * all metrics are recording and saved to the metrics folder
@@ -108,4 +106,3 @@ int main(int argc, char** argv){
     return 0;
 
 }
-#pragma clang diagnostic pop
