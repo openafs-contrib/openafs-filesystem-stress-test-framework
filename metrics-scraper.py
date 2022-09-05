@@ -5,6 +5,7 @@ import math
 import numpy.ma
 
 
+#Plots given data from a file into a scatterplot
 def plot(data_param, filename_param):
     total_entries = len(data_param)
     x = list(range(0, total_entries))
@@ -17,6 +18,7 @@ def plot(data_param, filename_param):
     plt.savefig('metrics/' + name + '.png')
 
 
+#Reads through the metrics branch and plots visualization for all the gathered data
 def main():
     current_dir = os.getcwd()
     metrics = os.path.join(current_dir, 'metrics')
