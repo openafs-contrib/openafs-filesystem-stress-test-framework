@@ -9,6 +9,8 @@
 #include "fileoperations.h"
 #include "config-parser.h"
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc50-cpp"
 /**
  * based on the config file, the tester biases towards or against certain file operations
  * all metrics are recording and saved to the metrics folder
@@ -88,7 +90,7 @@ int main(int argc, char** argv){
             }
             if (rand() % 100 < create_chance) {
                 char path[50];
-                sprintf(path, "%s/created_file%d.txt", dirName, filenum+100);
+                sprintf(path, "%s/created_file%d.txt", dirName, filenum+rand());
                 double create_t = createFile(path);
                 if(create_t != -1) fprintf(create_time, "%f\n", create_t);
             }
@@ -106,3 +108,4 @@ int main(int argc, char** argv){
     return 0;
 
 }
+#pragma clang diagnostic pop
