@@ -18,6 +18,7 @@ Throughout the test certain metrics will be recorded and dumped into correspondi
 [Metadata Operations: Time to Rename, Write, Delete]
 
 ## Initialization
+### Clone the repository into the desired testing envoirment
 
 ### Edit *config.cfg* before setup
 The formatting of *config.cfg* is of a key value pair with "=" as the delimiter
