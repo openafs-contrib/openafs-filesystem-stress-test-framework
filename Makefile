@@ -25,6 +25,7 @@ setupexec: setup.c config-parser.c
 run: fileexec
 	@echo "Running test suite..."
 	@./fileexec > log.txt
+	@echo "Testing Completed"
 
 fileexec: filetest filetester.c config-parser.c
 	@gcc -o fileexec filetester.c config-parser.c -Wall
