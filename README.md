@@ -23,6 +23,10 @@ Throughout the test certain metrics will be recorded and dumped into correspondi
 ### Edit *config.cfg* before setup
 The formatting of *config.cfg* is of a key value pair with "=" as the delimiter
 
+All chance parameters are the percentage likelihood a certain operation happens on a given file
+
+_test-time_ is an integer value for the minutes the test will run
+
 ### Setting up test directories and files
 Run ```make init``` to establish the test files and test directories. Directories will be in the format of **testFiles-#**
 inside of the **TestDirectory** directory
