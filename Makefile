@@ -17,7 +17,7 @@ removeexec:
 
 init: setupexec
 	@echo "Setting up test directories and files... (Will take some time)"
-	@./setupexec > log.txt
+	@./setupexec > log.txt 2>&1
 
 setupexec: setup.c config-parser.c
 	@gcc -o setupexec setup.c config-parser.c -Wall
