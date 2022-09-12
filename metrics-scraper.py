@@ -5,7 +5,7 @@ import math
 import numpy.ma
 
 
-#Plots given data from a file into a scatterplot
+# Plots given data from a file into a scatterplot
 def plot(data_param, filename_param, ylabel):
     total_entries = len(data_param)
     x = list(range(0, total_entries))
@@ -21,7 +21,7 @@ def plot(data_param, filename_param, ylabel):
     plt.savefig('metrics/' + name + '.pdf')
 
 
-#Reads through the metrics branch and plots visualization for all the gathered data
+# Reads through the metrics branch and plots visualization for all the gathered data
 def main():
     current_dir = os.getcwd()
     metrics = os.path.join(current_dir, 'metrics')
@@ -36,6 +36,9 @@ def main():
         if ".txt" in filename and "file" not in filename:
             with open(os.path.join(metrics, filename), 'r') as metric_file:
                 data = metric_file.readlines()
+                data[:] = [x for x in data if not x.count('.') > 1]
+
+
                 if "read" in filename:
                     data = np.asarray(data, dtype=float)
                     data.tolist()
