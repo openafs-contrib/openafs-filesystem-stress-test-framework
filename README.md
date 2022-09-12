@@ -1,5 +1,8 @@
 # Open AFS Stress Testing Framework
 
+**Note: this tester is only tested and fully functional when running on linux. 
+OSX should be functional but is not supported.**
+
 ## Capabilities
 **Stress Testing**
 
@@ -17,8 +20,11 @@ Throughout the test certain metrics will be recorded and dumped into correspondi
 
 [Metadata Operations: Time to Rename, Write, Delete]
 
+
 ## Initialization
-### Clone the repository into the desired testing environment
+**Clone the repository into the desired testing environment**
+
+**Install python3 and pip**
 
 ### Edit *config.cfg* before setup
 The formatting of *config.cfg* is of a key value pair with "=" as the delimiter
