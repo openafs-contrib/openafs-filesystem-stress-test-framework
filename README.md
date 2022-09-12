@@ -1,6 +1,6 @@
 # Open AFS Stress Testing Framework
 
-**Note: this tester is only tested and fully functional when running on linux. 
+**Note: this tester is only tested and fully functional when running on Linux. 
 OSX should be functional but is not supported.**
 
 ## Capabilities
