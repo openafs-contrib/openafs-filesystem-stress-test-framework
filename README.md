@@ -43,6 +43,7 @@ Run ```make run``` to run the tester.
 Run ```make viewplots``` to obtain the visualization of the metrics. 
 
 Rasterized *.png* files and vectorized *.pdf* files are stored in **metrics** directory
+
 **.pdf files are recommended**
 
 ## Reset
